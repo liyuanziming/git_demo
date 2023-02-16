@@ -15,18 +15,18 @@ while  n<=3 :
 
               site_start = input("请输入起始站点：")
               site_end = input("请输入终点站：")
-
-              start = site.index(site_start)
-              end = site.index(site_end)
-
-              price = abs(start - end) * 10
-
-              if price <= 20:
-                  print("票价为：20元；请扫码，付款！")
-              elif price > 40:
-                  print("票价为：40元;请扫码，付款！")
+              if site_start in site and site_end in site:
+                  start = site.index(site_start)
+                  end = site.index(site_end)
+                  price = abs(start - end) * 10
+                  if price <= 20:
+                      print("票价为：20元；请扫码，付款！")
+                  elif price > 40:
+                      print("票价为：40元;请扫码，付款！")
+                  else:
+                      print("票价为:", price, "元；请扫码，付款！")
               else:
-                  print("票价为:", price, "元；请扫码，付款！")
+                  print("站点输入有误！")
           else:
               print("黄码禁止购票，谢谢配合！")
           break    #跳出循环，程序结束。
