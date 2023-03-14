@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>登录页面</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            用户名：<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            用户密码：<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit() }}</p>
+         <p>
+        忘记密码？
+        <a href="{{ url_for('reset_password_request') }}">点击重置</a>
+    </p>
+    </form>
+<p>新建用户? <a href="{{ url_for('register') }}">点击用户注册!</a></p>
+{% endblock %}

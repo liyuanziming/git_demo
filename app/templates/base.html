@@ -1,0 +1,51 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}{{ title }} - Microblog{% else %}Welcome to Microblog{% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <div>
+            Microblog:
+            <a href="{{   url_for('index') }}">主页</a>
+            {% if current_user.is_anonymous %}
+            <a href="{{   url_for('login') }}">登录</a>
+            {% else %}
+            <a href="{{ url_for('user',username =current_user.username) }}">个人简介</a>
+             <a href="{{   url_for('explore') }}">聊天室</a>
+             <a href="{{url_for('upload')}}">图片上传</a>
+            <a href="{{   url_for('logout') }}">退出</a>
+            {% endif %}
+        </div>
+{% endblock %}
+{% block scripts %}
+        {{super()  }}
+    {{ moment.include_moment() }}
+
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+
+        <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                {% block page_title %}{% endblock %}
+
+            <div class="main_content">
+                 {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}

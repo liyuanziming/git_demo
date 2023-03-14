@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div align="left">
+        <h1>你好！ {{ current_user.username }}!</h1>
+    {%   if form  %}
+        <form action="" method="post">
+                {{ form.hidden_tag() }}
+        <p>
+            {{ form.post.label }}<br>
+            {{ form.post(cols=32, rows=4) }}<br>
+            {% for error in form.post.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+        </form>
+    {%  endif  %}
+    {% for post in posts %}
+    <p>
+   {{ moment(post.timestamp).fromNow()}}      <b style="color:red;"> {{ post.author }}</b> says: <b  style="color :red;">{{ post.body }}</b>
+    </p>
+    {% endfor %}
+
+
+</div>
+    <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Newer posts
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    Older posts <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
